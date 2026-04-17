@@ -1,4 +1,12 @@
-// Cargar imágenes desde PHP
+// =======================
+// VARIABLES GLOBALES
+// =======================
+let index = 0;
+let intervalo = null;
+
+// =======================
+// CARGAR SLIDER
+// =======================
 async function cargarSlider() {
     try {
         const res = await fetch('slider.php');
@@ -13,30 +21,32 @@ async function cargarSlider() {
 
         let html = '';
 
-        data.forEach((img, index) => {
+        data.forEach((img, i) => {
             html += `
-                <div style="position:relative;">
-                    <img src="data:${img.tipo};base64,${img.imagen}" 
-                         class="slide ${index === 0 ? 'active' : ''}">
-        
-                    <button onclick="eliminarImagen(${img.id})"
-                        style="
-                            position:absolute;
-                            top:5px;
-                            right:5px;
-                            background:red;
-                            color:white;
-                            border:none;
-                            border-radius:50%;
-                            width:25px;
-                            height:25px;
-                            cursor:pointer;
-                        ">X</button>
+                <div>
+                    <img src="data:${img.tipo};base64,${img.imagen}"
+                         class="slide ${i === 0 ? 'active' : ''}">
+
+                    <button class="btn-delete" onclick="eliminarImagen(${img.id})">
+                        ✕
+                    </button>
                 </div>
             `;
         });
 
+        // =======================
+        // FLECHAS
+        // =======================
+        html += `
+            <div class="slider-controls">
+                <button class="arrow" onclick="prevSlide()">❮</button>
+                <button class="arrow" onclick="nextSlide()">❯</button>
+            </div>
+        `;
+
         contenedor.innerHTML = html;
+
+        index = 0;
 
         iniciarSlider();
 
@@ -45,25 +55,50 @@ async function cargarSlider() {
     }
 }
 
-// Slider automático
-let index = 0;
-
+// =======================
+// SLIDER AUTOMÁTICO (FIX)
+// =======================
 function iniciarSlider() {
+
     const slides = document.querySelectorAll('.slide');
 
     if (slides.length === 0) return;
 
-    setInterval(() => {
+    // 🔥 evita múltiples intervalos
+    if (intervalo) clearInterval(intervalo);
+
+    intervalo = setInterval(() => {
         slides[index].classList.remove('active');
+
         index = (index + 1) % slides.length;
+
         slides[index].classList.add('active');
+
     }, 3000);
 }
 
-// Ejecutar al cargar
-document.addEventListener("DOMContentLoaded", cargarSlider);
+// =======================
+// FLECHAS
+// =======================
+function nextSlide() {
+    const slides = document.querySelectorAll('.slide');
 
-// Subir imagen
+    slides[index].classList.remove('active');
+    index = (index + 1) % slides.length;
+    slides[index].classList.add('active');
+}
+
+function prevSlide() {
+    const slides = document.querySelectorAll('.slide');
+
+    slides[index].classList.remove('active');
+    index = (index - 1 + slides.length) % slides.length;
+    slides[index].classList.add('active');
+}
+
+// =======================
+// SUBIR IMAGEN
+// =======================
 async function subirImagen() {
 
     const input = document.getElementById('file');
@@ -82,8 +117,8 @@ async function subirImagen() {
             body: formData
         });
 
-        const result = await res.text();
-        alert(result);
+        const resultado = await res.text();
+        alert(resultado);
 
         cargarSlider();
 
@@ -91,7 +126,12 @@ async function subirImagen() {
         console.error(error);
     }
 }
+
+// =======================
+// ELIMINAR IMAGEN
+// =======================
 async function eliminarImagen(id) {
+
     if (!confirm("¿Eliminar imagen?")) return;
 
     const formData = new FormData();
@@ -106,9 +146,14 @@ async function eliminarImagen(id) {
         const resultado = await res.text();
         alert(resultado);
 
-        cargarSlider(); // recargar slider
+        cargarSlider();
 
     } catch (error) {
         console.error(error);
     }
 }
+
+// =======================
+// INICIAR
+// =======================
+document.addEventListener("DOMContentLoaded", cargarSlider);

@@ -6,203 +6,292 @@
 <title>Hugo | Mi Sitio</title>
 
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+.btn-delete {
+    position: absolute !important;
 
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: #0f172a;
-        color: white;
-    }
+    bottom: 20px !important;
+    right: 20px !important;
 
-    header {
-        height: 60px;
-        background: #020617;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        border-bottom: 1px solid #1e293b;
-    }
+    top: auto !important; /* 🔥 clave para que deje de usar top */
 
-    header h1 {
-        font-size: 18px;
-        color: #38bdf8;
-    }
+    width: 38px;
+    height: 38px;
 
-    header button {
-        background: #1e293b;
-        border: none;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
+    border-radius: 50%;
+    border: none;
 
-    .container {
-        display: flex;
-        height: calc(100vh - 60px);
-    }
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
 
-    .sidebar {
-        width: 230px;
-        background: #020617;
-        border-right: 1px solid #1e293b;
-        transition: 0.3s;
-    }
+    color: white;
+    font-size: 18px;
 
-    .sidebar.hidden {
-        width: 70px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .sidebar ul {
-        list-style: none;
-        padding: 10px;
-    }
+    cursor: pointer;
+    z-index: 50;
 
-    .sidebar li {
-        padding: 12px;
-        border-radius: 8px;
-        display: flex;
-        gap: 10px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+    transition: 0.3s;
+}
 
-    .sidebar li:hover {
-        background: #1e293b;
-    }
+/* hover elegante */
+.btn-delete:hover {
+    background: #ef4444;
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
 
-    .sidebar.hidden span {
-        display: none;
-    }
+/* efecto al hacer click */
+.btn-delete:active {
+    transform: scale(0.95);
+}
+.slider > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 
-    main {
-        flex: 1;
-        padding: 30px;
-    }
+/* clave para que el botón no se esconda */
+.slider > div .btn-delete {
+    pointer-events: auto;
+}
 
-    .hero {
-        background: linear-gradient(135deg, #0ea5e9, #6366f1);
-        padding: 40px;
-        border-radius: 20px;
-        margin-bottom: 30px;
-    }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    .hero h2 {
-        font-size: 32px;
-        margin-bottom: 10px;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background: #020617;
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid #1e293b;
-        transition: 0.3s;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        border-color: #38bdf8;
-    }
-    body {
+body {
     font-family: 'Segoe UI', sans-serif;
     background: #0f172a;
-    color: #fff;
+    color: white;
+}
+
+header {
+    height: 60px;
+    background: #020617;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid #1e293b;
+}
+
+header h1 {
+    font-size: 18px;
+    color: #38bdf8;
+}
+
+header button {
+    background: #1e293b;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.sidebar {
+    width: 230px;
+    background: #020617;
+    border-right: 1px solid #1e293b;
+    transition: 0.3s;
+}
+
+.sidebar.hidden {
+    width: 70px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 10px;
+}
+
+.sidebar li {
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sidebar li:hover {
+    background: #1e293b;
+}
+
+.sidebar.hidden span {
+    display: none;
+}
+
+main {
+    flex: 1;
+    padding: 30px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.hero h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #020617;
     padding: 20px;
-    }
+    border-radius: 15px;
+    border: 1px solid #1e293b;
+    transition: 0.3s;
+}
 
-    /* Contenedor */
-    .slider-section {
-        margin-top: 40px;
-    }
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #38bdf8;
+}
 
-    /* Título */
-    .slider-section h2 {
-        margin-bottom: 15px;
-    }
+/* =========================
+   SLIDER PRO 🔥
+========================= */
 
-    /* Input file */
-    #file {
-        margin-bottom: 10px;
-        padding: 8px;
-        background: #1e293b;
-        color: white;
-        border: none;
-        border-radius: 8px;
-    }
+.slider {
+    width: 100%;
+    height: 320px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    background: #020617;
+}
 
-    /* Botón */
-    .btn-subir {
-        display: inline-block;
-        padding: 10px 18px;
-        background: linear-gradient(135deg, #3b82f6, #06b6d4);
-        border: none;
-        border-radius: 10px;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+/* cada slide */
+.slider > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 
-    /* Hover */
-    .btn-subir:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
+/* imagen */
+.slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 
-    /* Click */
-    .btn-subir:active {
-        transform: scale(0.95);
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
 
-    /* Slider */
-    #slider {
-        margin-top: 20px;
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
 
-    /* Imágenes */
-    #slider img {
-        width: 150px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 10px;
-        transition: transform 0.3s;
-    }
+.slide.active {
+    opacity: 1;
+}
 
-    #slider img:hover {
-        transform: scale(1.1);
-    }
-    .slider {
-       width: 100%;
-       height: 300px;
-       overflow: hidden;
-       border-radius: 15px;
-       margin-bottom: 20px;
-       position: relative;
-   }
+/* =========================
+   BOTÓN ELIMINAR MODERNO
+========================= */
 
-   .slide {
-       width: 100%;
-       height: 100%;
-       object-fit: cover;
-       position: absolute;
-       opacity: 0;
-       transition: opacity 0.8s ease;
-   }
+.btn-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 
-   .slide.active {
-       opacity: 1;
-   }
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+    border: none;
+
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    background: red;
+    transform: scale(1.1);
+}
+
+/* =========================
+   FLECHAS
+========================= */
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 20;
+}
+
+.arrow {
+    background: rgba(0,0,0,0.4);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+.arrow:hover {
+    background: #38bdf8;
+    transform: scale(1.1);
+}
+
+/* =========================
+   BOTONES E INPUT
+========================= */
+
+button {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+#file {
+    background: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 10px;
+    color: #94a3b8;
+}
 
 </style>
 </head>
@@ -230,7 +319,12 @@
             <h2>Hola, soy Hugo 👋</h2>
             <p>Ingeniero en proceso | Apasionado por la tecnología</p>
         </div>
-	<div id="slider" class="slider"></div>
+
+        <!-- SLIDER -->
+        <div id="slider" class="slider">
+            <!-- JS mete aquí las imágenes + botones + flechas -->
+        </div>
+
         <div class="grid">
             <div class="card">
                 <h3>💻 Mis proyectos</h3>
@@ -248,15 +342,12 @@
             </div>
         </div>
 
-        <!-- SECCIÓN SLIDER -->
+        <!-- SUBIR -->
         <div style="margin-top:40px;">
-
             <h2 style="margin-bottom:15px;">📸 Slider dinámico</h2>
 
-            <!-- SUBIR IMAGEN -->
-            <input type="file" id="file" style="margin-bottom:10px;">
+            <input type="file" id="file">
             <button onclick="subirImagen()">Subir imagen</button>  
-
         </div>
 
     </main>
@@ -264,10 +355,12 @@
 </div>
 
 <script>
-    function toggleSidebar() {
-        document.getElementById("sidebar").classList.toggle("hidden");
-    }
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("hidden");
+}
 </script>
+
 <script src="script.js"></script>
+
 </body>
 </html>
