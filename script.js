@@ -35,6 +35,8 @@ let index = 0;
 function iniciarSlider() {
     const slides = document.querySelectorAll('.slide');
 
+    if (slides.length === 0) return;
+
     setInterval(() => {
         slides[index].classList.remove('active');
         index = (index + 1) % slides.length;
@@ -44,3 +46,32 @@ function iniciarSlider() {
 
 // Ejecutar al cargar
 document.addEventListener("DOMContentLoaded", cargarSlider);
+
+// Subir imagen
+async function subirImagen() {
+
+    const input = document.getElementById('file');
+
+    if (input.files.length === 0) {
+        alert("Selecciona una imagen");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('imagen', input.files[0]);
+
+    try {
+        const res = await fetch('upload.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await res.text();
+        alert(result);
+
+        cargarSlider();
+
+    } catch (error) {
+        console.error(error);
+    }
+}

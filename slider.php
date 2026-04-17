@@ -1,30 +1,23 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once 'db_pgsql.php';
 
 header('Content-Type: application/json');
 
-$db = conectarDB();
-
 try {
+    $db = conectarDB();
 
-    $sql = "SELECT id, nombre, tipo, imagen FROM slider ORDER BY id DESC";
+    $sql = "SELECT id, nombre, tipo, encode(imagen, 'base64') as imagen FROM slider ORDER BY id DESC";
     $stmt = $db->query($sql);
 
-    $imagenes = [];
-
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-        $imagenes[] = [
-            "id" => $row['id'],
-            "nombre" => $row['nombre'],
-            "tipo" => $row['tipo'],
-            // Convertimos BLOB → base64
-            "imagen" => base64_encode($row['imagen'])
-        ];
-    }
+    $imagenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($imagenes);
 
-} catch (PDOException $e) {
-    echo json_encode(["error" => $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode([
+        "error" => $e->getMessage()
+    ]);
 }
