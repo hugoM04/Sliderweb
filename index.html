@@ -182,6 +182,27 @@
     #slider img:hover {
         transform: scale(1.1);
     }
+    .slider {
+       width: 100%;
+       height: 300px;
+       overflow: hidden;
+       border-radius: 15px;
+       margin-bottom: 20px;
+       position: relative;
+   }
+
+   .slide {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+       position: absolute;
+       opacity: 0;
+       transition: opacity 0.8s ease;
+   }
+
+   .slide.active {
+       opacity: 1;
+   }
 
 </style>
 </head>
@@ -209,7 +230,7 @@
             <h2>Hola, soy Hugo 👋</h2>
             <p>Ingeniero en proceso | Apasionado por la tecnología</p>
         </div>
-
+	<div id="slider" class="slider"></div>
         <div class="grid">
             <div class="card">
                 <h3>💻 Mis proyectos</h3>
