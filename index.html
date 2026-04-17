@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hugo | Mi Sitio</title>
+
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #0f172a;
+        color: white;
+    }
+
+    header {
+        height: 60px;
+        background: #020617;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        border-bottom: 1px solid #1e293b;
+    }
+
+    header h1 {
+        font-size: 18px;
+        color: #38bdf8;
+    }
+
+    header button {
+        background: #1e293b;
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .container {
+        display: flex;
+        height: calc(100vh - 60px);
+    }
+
+    .sidebar {
+        width: 230px;
+        background: #020617;
+        border-right: 1px solid #1e293b;
+        transition: 0.3s;
+    }
+
+    .sidebar.hidden {
+        width: 70px;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 10px;
+    }
+
+    .sidebar li {
+        padding: 12px;
+        border-radius: 8px;
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .sidebar li:hover {
+        background: #1e293b;
+    }
+
+    .sidebar.hidden span {
+        display: none;
+    }
+
+    main {
+        flex: 1;
+        padding: 30px;
+    }
+
+    .hero {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+    }
+
+    .hero h2 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background: #020617;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #1e293b;
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        border-color: #38bdf8;
+    }
+    body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #fff;
+    padding: 20px;
+    }
+
+    /* Contenedor */
+    .slider-section {
+        margin-top: 40px;
+    }
+
+    /* Título */
+    .slider-section h2 {
+        margin-bottom: 15px;
+    }
+
+    /* Input file */
+    #file {
+        margin-bottom: 10px;
+        padding: 8px;
+        background: #1e293b;
+        color: white;
+        border: none;
+        border-radius: 8px;
+    }
+
+    /* Botón */
+    .btn-subir {
+        display: inline-block;
+        padding: 10px 18px;
+        background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    /* Hover */
+    .btn-subir:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Click */
+    .btn-subir:active {
+        transform: scale(0.95);
+    }
+
+    /* Slider */
+    #slider {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    /* Imágenes */
+    #slider img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s;
+    }
+
+    #slider img:hover {
+        transform: scale(1.1);
+    }
+
+</style>
+</head>
+<body>
+
+<header>
+    <button onclick="toggleSidebar()">☰</button>
+    <h1>Hugo.dev 🚀</h1>
+</header>
+
+<div class="container">
+
+    <aside id="sidebar" class="sidebar">
+        <ul>
+            <li>🏠 <span>Inicio</span></li>
+            <li>💻 <span>Proyectos</span></li>
+            <li>🧠 <span>Sobre mí</span></li>
+            <li>📬 <span>Contacto</span></li>
+        </ul>
+    </aside>
+
+    <main>
+
+        <div class="hero">
+            <h2>Hola, soy Hugo 👋</h2>
+            <p>Ingeniero en proceso | Apasionado por la tecnología</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>💻 Mis proyectos</h3>
+                <p>Explora las cosas que he creado.</p>
+            </div>
+
+            <div class="card">
+                <h3>🧠 Sobre mí</h3>
+                <p>Conoce más sobre mi experiencia.</p>
+            </div>
+
+            <div class="card">
+                <h3>📬 Contacto</h3>
+                <p>Puedes comunicarte conmigo aquí.</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN SLIDER -->
+        <div style="margin-top:40px;">
+
+            <h2 style="margin-bottom:15px;">📸 Slider dinámico</h2>
+
+            <!-- SUBIR IMAGEN -->
+            <input type="file" id="file" style="margin-bottom:10px;">
+            <button onclick="subirImagen()">Subir imagen</button>
+
+            <!-- CONTENEDOR DEL SLIDER -->
+            <div id="slider" style="margin-top:20px; display:flex; gap:15px; flex-wrap:wrap;">
+                <!-- Aquí se cargarán las imágenes dinámicamente -->
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("hidden");
+    }
+</script>
+<script src="script.js"></script>
+</body>
+</html>
