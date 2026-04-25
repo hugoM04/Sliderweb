@@ -239,6 +239,79 @@
             opacity: 0.9;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
+	/* Contenedor principal */
+.seccion-enlaces {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.titulo-seccion {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #3498db;
+    display: inline-block;
+}
+
+/* El Grid (la malla) */
+.contenedor-grid {
+    display: grid;
+    /* Crea columnas automáticas de mínimo 250px */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* La Tarjeta individual */
+.tarjeta {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #333;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    border-color: #3498db;
+}
+
+.tarjeta a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Contenedor de la imagen */
+.miniatura {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Formato tipo video de YouTube */
+    overflow: hidden;
+}
+
+.miniatura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Texto debajo de la imagen */
+.info {
+    padding: 15px;
+}
+
+.info h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.4;
+}
     </style>
 </head>
 <body>
@@ -293,6 +366,59 @@
             </div>
         </main>
     </div>
+    <section class="seccion-enlaces">
+    <h2 class="titulo-seccion">Mis Recursos y Prácticas</h2>
+    
+    <div class="contenedor-grid">
+        <article class="tarjeta">
+            <a href="links.html">
+                <div class="miniatura">
+                    <img src="img/logo-git.png" alt="Links">
+                </div>
+                <div class="info">
+                    <h3>Links</h3>
+                    <p>Practica de Urls</p>
+                </div>
+            </a>
+        </article>
+
+        <article class="tarjeta">
+            <a href="media-queries.html">
+                <div class="miniatura">
+                    <img src="img/media.png" alt="Media Queries">
+                </div>
+                <div class="info">
+                    <h3>Media Queries</h3>
+                    <p>HTML y CSS para diseño responsivo.</p>
+                </div>
+            </a>
+        </article>
+
+        <article class="tarjeta">
+            <a href="text-content.html">
+                <div class="miniatura">
+                    <img src="img/text.png" alt="Text Content">
+                </div>
+                <div class="info">
+                    <h3>Text Content</h3>
+                    <p>Manejo de etiquetas de texto en HTML.</p>
+                </div>
+            </a>
+        </article>
+        <article class="tarjeta">
+    <a href="https://github.com/hugoM04/ProgramacionWebHugo/" target="_blank">
+        <div class="miniatura">
+            <img src="img/git.png" alt="Repositorio Git">
+        </div>
+        <div class="info">
+            <h3>Repositorio Git</h3>
+            <p>Acceso al github</p>
+        </div>
+    </a>  
+</article>
+
+    </div>
+</section>
 
     <script>
         function toggleSidebar() {
