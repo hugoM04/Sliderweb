@@ -240,78 +240,82 @@
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
 	/* Contenedor principal */
+	/* --- Sección al final (Footer Section) --- */
 .seccion-enlaces {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    margin-top: 60px;
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .titulo-seccion {
-    color: #fff;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #64748b; /* Gris serio */
     margin-bottom: 20px;
-    font-size: 1.5rem;
-    border-bottom: 2px solid #3498db;
-    display: inline-block;
+    text-align: center; /* Centrado para estilo minimalista */
 }
 
-/* El Grid (la malla) */
+/* --- Grid de Iconos --- */
 .contenedor-grid {
-    display: grid;
-    /* Crea columnas automáticas de mínimo 250px */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    display: flex; /* Usamos flex para centrar si son pocos */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+/* --- Tarjeta siempre encendida --- */
+.tarjeta{
+    width:140px;
+    background:#0f172a;
+    border:1px solid rgba(56,189,248,.18);
+    border-radius:12px;
+    overflow:hidden;
+    text-decoration:none;
+    text-align:center;
+
+    /* brillo permanente */
+    box-shadow:
+        0 0 8px rgba(56,189,248,.08),
+        0 0 18px rgba(56,189,248,.05);
+
+    opacity:1;
+    transition:.3s ease;
 }
 
-/* La Tarjeta individual */
-.tarjeta {
-    background: #1a1a1a;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #333;
+.tarjeta:hover{
+    transform:translateY(-3px);
+
+    /* solo aumenta un poco */
+    border-color:rgba(56,189,248,.35);
+    box-shadow:
+        0 0 12px rgba(56,189,248,.14),
+        0 0 28px rgba(56,189,248,.10);
 }
 
-.tarjeta:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    border-color: #3498db;
+/* Imagen con brillo suave siempre */
+.miniatura img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:.82;
+    filter: saturate(1.05) brightness(.95);
+    transition:.3s;
 }
 
-.tarjeta a {
-    text-decoration: none;
-    color: inherit;
+.tarjeta:hover .miniatura img{
+    opacity:1;
+    filter:saturate(1.15) brightness(1);
 }
 
-/* Contenedor de la imagen */
-.miniatura {
-    width: 100%;
-    aspect-ratio: 16 / 9; /* Formato tipo video de YouTube */
-    overflow: hidden;
-}
-
-.miniatura img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Texto debajo de la imagen */
-.info {
-    padding: 15px;
-}
-
-.info h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.1rem;
-    color: #fff;
+.info h3{
+    color:#dbeafe;
+    text-shadow:0 0 6px rgba(56,189,248,.12);
 }
 
 .info p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #aaa;
-    line-height: 1.4;
+    display: none; /* Mejor ocultarlo para que parezca un botón/icono */
 }
+
     </style>
 </head>
 <body>
