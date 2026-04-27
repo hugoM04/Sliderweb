@@ -32,27 +32,22 @@ async function cargarSlider() {
 
 // 2. Función clave: Usa la URL directa que te funcionó en el navegador
 function mostrarImagen(id) {
-    const contenedor = document.getElementById('slide-container');
-    if (!contenedor) return;
+    // Alert opcional como en el ejemplo del docente
+    console.log("Cambiando imagen al ID: " + id);
 
-    // IMPORTANTE: Aquí NO usamos fetch. 
-    // Ponemos la URL directamente en el 'src' de la imagen.
-    const urlDirecta = `get_image.php?id=${id}`;
-
-    console.log("Cargando imagen ID:", id);
-
-    contenedor.innerHTML = `
-        <img src="${urlDirecta}" 
-             style="width:100%; height:100%; object-fit:cover; display:block;"
-             onload="console.log('Imagen ${id} cargada OK')"
-             onerror="this.src='https://via.placeholder.com/800x400?text=Error+ID+${id}'">
-        
-        <button class="btn-delete" onclick="eliminarImagen(${id})" 
-                style="position:absolute; bottom:20px; right:20px; z-index:100;">
-            ✕
-        </button>
-    `;
-}
+    $.ajax({
+        // Llamamos a un script que nos devuelva el HTML de la imagen
+        url: `generar_visor.php?id=${id}`, 
+        cache: false,
+        success: function(result) {
+            // Insertamos el resultado (el HTML) en el contenedor
+            $('#slide-container').html(result);
+        },
+        error: function() {
+            $('#slide-container').html('<p>Error al cargar el componente de imagen</p>');
+        }
+    });
+}}
 
 // 3. Funciones de las flechas
 function nextSlide() {
@@ -104,4 +99,43 @@ async function eliminarImagen(id) {
         console.error("Error en la petición de borrado:", error);
         alert("No se pudo conectar con el servidor para eliminar.");
     }
+}
+
+// 6. subir img
+function subirImagen() {
+    const fileInput = document.getElementById('file');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Por favor, selecciona una imagen primero.");
+        return;
+    }
+
+    const formData = new FormData();
+    
+    // AQUÍ ESTABA EL ERROR: 
+    // Debe ser 'imagen' para que coincida con $_FILES['imagen'] de tu PHP
+    formData.append('imagen', file); 
+
+    fetch('upload.php', { 
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Error en el servidor');
+        return response.text();
+    })
+    .then(data => {
+        console.log("Respuesta servidor:", data);
+        if (data.trim() === "OK") { // Tu PHP devuelve "OK" si todo sale bien
+            alert("¡Imagen subida correctamente!");
+            cargarSlider(); // Refresca el slider sin recargar la página
+        } else {
+            alert("El servidor dice: " + data);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error al conectar: " + error.message);
+    });
 }
