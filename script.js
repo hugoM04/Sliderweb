@@ -139,3 +139,15 @@ function subirImagen() {
         alert("Error al conectar: " + error.message);
     });
 }
+
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    
+    // Si la pantalla es pequeña (menor a 768px)
+    if (window.innerWidth <= 768) {
+        sidebar.classList.toggle("active"); // Usamos la clase active para mostrar/ocultar
+    } else {
+        // En PC sigue funcionando como antes (colapsando)
+        sidebar.classList.toggle("hidden");
+    }
+}

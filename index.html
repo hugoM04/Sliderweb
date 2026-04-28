@@ -315,6 +315,63 @@
 .info p {
     display: none; /* Mejor ocultarlo para que parezca un botón/icono */
 }
+/* --- Media Queries para Móviles --- */
+@media (max-width: 768px) {
+    /* 1. El contenedor ya no es horizontal, el sidebar se oculta */
+    .container {
+        flex-direction: column;
+        height: auto; /* Permite que la página crezca hacia abajo */
+    }
+
+    /* 2. El Sidebar ahora flota o se oculta por completo */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #1e293b;
+        display: none; /* Se oculta por defecto en móvil */
+    }
+
+    .sidebar.active {
+        display: block; /* Solo se muestra si tiene la clase active */
+    }
+
+    /* 3. Ajustes del Main y Hero */
+    main {
+        padding: 15px;
+    }
+
+    .hero {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    /* 4. El Slider debe ser más bajo en móvil */
+    .slider {
+        height: 250px;
+    }
+
+    /* 5. El Grid de tarjetas pasa a ser de 1 sola columna */
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 6. La sección de carga de archivos */
+    .upload-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    input[type="file"] {
+        margin-right: 0;
+        width: 100%;
+    }
+}
 
     </style>
 </head>
