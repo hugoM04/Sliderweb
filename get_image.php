@@ -1,33 +1,32 @@
 <?php
-require_once 'db_pgsql.php';
+require_once 'dbmysql.php'; // Corregido el nombre de la función
 
 if (isset($_GET['id'])) {
     try {
         $db = conectarDB();
-        $stmt = $db->prepare("SELECT tipo, imagen FROM slider WHERE id = :id");
+        // AJUSTE: Cambiamos 'tipo' por 'extension' y 'imagen' por 'datos'
+        $stmt = $db->prepare("SELECT extension, datos FROM imagenes WHERE id = :id");
         $stmt->execute(['id' => $_GET['id']]);
         
-        // Usamos fetch normal para manejar mejor el buffer
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($row) {
-            $imagen = $row['imagen'];
-            $tipo = trim($row['tipo']);
+            // AJUSTE: Usamos los nombres de tu tabla MariaDB
+            $imagen = $row['datos'];
+            $tipo = trim($row['extension']);
 
-            // Si es un recurso (LOB), lo leemos
+            // En MariaDB con PDO, los BLOB a veces vienen como recursos o como strings
             if (is_resource($imagen)) {
                 $imagen = stream_get_contents($imagen);
             }
 
-            // Limpieza de caracteres de escape de PostgreSQL si existen
-            if (strpos($imagen, '\\x') === 0) {
-                $imagen = pack('H*', substr($imagen, 2));
-            }
+            // IMPORTANTE: Quita la limpieza de PostgreSQL ('\\x'), 
+            // MariaDB no usa ese formato para los BLOB.
 
             if (ob_get_length()) ob_clean();
             
             header("Content-Type: " . $tipo);
-            header("Content-Length: " . strlen($imagen)); // Ayuda al navegador a saber cuánto leer
+            header("Content-Length: " . strlen($imagen));
             echo $imagen;
             exit;
         }

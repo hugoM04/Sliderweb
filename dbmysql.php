@@ -1,13 +1,22 @@
 <?php
-$host = "localhost";
-$user = "hmalagon";
-$pass = "123456789";
-$db   = "slider_db";
+// dbmysql.php
 
-// Conexión para MySQL
-$conexion = mysqli_connect($host, $user, $pass, $db);
+function conectarDB() {
+    $host = "localhost";
+    $db   = "slider_db";
+    $user = "hmalagon";
+    $pass = "123456789"; // La que recuperamos antes
 
-if (!$conexion) {
-    die("Error de conexión a MySQL: " . mysqli_connect_error());
+    try {
+        // Importante: el prefijo debe ser 'mysql' para MariaDB
+        $conexion = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+        
+        // Configurar para que lance excepciones en errores
+        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        return $conexion;
+    } catch (PDOException $e) {
+        die("Error de conexión: " . $e->getMessage());
+    }
 }
 ?>
