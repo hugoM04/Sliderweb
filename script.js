@@ -47,7 +47,7 @@ function mostrarImagen(id) {
             $('#slide-container').html('<p>Error al cargar el componente de imagen</p>');
         }
     });
-}}
+}
 
 // 3. Funciones de las flechas
 function nextSlide() {
