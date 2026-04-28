@@ -372,13 +372,28 @@
         width: 100%;
     }
 }
+@media (max-width: 768px) {
+    .sidebar {
+        display: none; /* Se oculta por defecto en móvil */
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 99;
+    }
+
+    /* Esta clase es la que "prende" el menú */
+    .sidebar.active {
+        display: block !important;
+    }
+}
 
     </style>
 </head>
 <body>
 
     <header>
-        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <button class="menu-toggle" onclick="toggleSidebar()" style="position: relative; z-index: 1001;">☰</button>
         <h1>Hugo.dev 🚀</h1>
         <div style="width: 40px;"></div> </header>
 
@@ -482,11 +497,20 @@
 </section>
 
     <script>
-        function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle("hidden");
-        }
+    function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        console.log("Toggle presionado. Ancho actual: " + window.innerWidth);
 
-        // Aquí irán tus funciones de subirImagen, nextSlide, etc.
+        if (window.innerWidth <= 768) {
+            // En celular usamos 'active' para el display: block
+            sidebar.classList.toggle("active");
+            console.log("Clase 'active' aplicada");
+        } else {
+            // En PC usamos 'hidden' para colapsar
+            sidebar.classList.toggle("hidden");
+            console.log("Clase 'hidden' aplicada");
+        }
+    }
     </script>
     <script src="script.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

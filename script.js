@@ -143,11 +143,11 @@ function subirImagen() {
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     
-    // Si la pantalla es pequeña (menor a 768px)
     if (window.innerWidth <= 768) {
-        sidebar.classList.toggle("active"); // Usamos la clase active para mostrar/ocultar
+        // En MÓVIL: usamos la clase 'active' para el display: block
+        sidebar.classList.toggle("active");
     } else {
-        // En PC sigue funcionando como antes (colapsando)
+        // En PC: seguimos usando 'hidden' para colapsar el ancho
         sidebar.classList.toggle("hidden");
     }
 }
